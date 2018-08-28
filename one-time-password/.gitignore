@@ -12,4 +12,4 @@ yarn.lock
 .idea
 *.iml
 
-service_account.json
+functions/*.json
