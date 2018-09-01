@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {createBottomTabNavigator, createStackNavigator} from 'react-navigation';
+import {Provider} from 'react-redux';
+import store from './store';
 
 import AuthScreen from './screens/AuthScreen';
 import WelcomeScreen from './screens/WelcomeScreen';
@@ -9,7 +11,8 @@ import DeckScreen from './screens/DeckScreen';
 import ReviewScreen from './screens/ReviewScreen';
 import SettingsScreen from './screens/SettingsScreen';
 
-class App extends React.Component {
+
+class App extends Component {
   render() {
     const MainNavigator = createBottomTabNavigator({
       welcome: WelcomeScreen,
@@ -29,9 +32,11 @@ class App extends React.Component {
     });
 
     return (
-      <View style={styles.container}>
-        <MainNavigator/>
-      </View>
+      <Provider store={store}>
+        <View style={styles.container}>
+          <MainNavigator/>
+        </View>
+      </Provider>
     );
   }
 }
