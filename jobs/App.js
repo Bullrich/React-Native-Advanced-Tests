@@ -29,6 +29,11 @@ class App extends Component {
           }
         })
       }
+    }, {
+      lazy: true,
+      navigationOptions: {
+        tabBar: {visible: false}
+      }
     });
 
     return (
