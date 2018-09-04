@@ -1,12 +1,21 @@
 import React, {Component} from 'react';
-import {AsyncStorage, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
 import * as actions from '../actions';
 
 class AuthScreen extends Component {
   componentDidMount() {
     this.props.facebookLogin();
-    AsyncStorage.removeItem('fb_token');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.onAuthComplete(nextProps);
+  }
+
+  onAuthComplete(props) {
+    if (props.token) {
+      this.props.navigation.navigate('map');
+    }
   }
 
   render() {
@@ -27,5 +36,9 @@ const styles = StyleSheet.create({
   },
 });
 
+function mapStateToProps({auth}) {
+  return {token: auth.token};
+}
 
-export default connect(null, actions)(AuthScreen);
+
+export default connect(mapStateToProps, actions)(AuthScreen);
